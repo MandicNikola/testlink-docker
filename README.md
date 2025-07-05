@@ -31,3 +31,24 @@ docker-compose down
 docker ps 
 ```
 Ova komanda nam prikazuje koji svi kontejneri trce.
+
+
+# Student FTN Aplikacija – Uputstvo za Pokretanje
+
+Student FTN aplikacija se nalazi unutar foldera `student-ftn` da bi je mogli pokrenuti neophodno je da terminal pozicioniramo na tu putanju. 
+**Napomena:** Ovde se podrazumeva da je terminal otvoren unutar folder-a gde ste skinuli ovaj repozitorjium.
+Unutar terminala otkucati komandu
+```bash 
+cd student-ftn
+```
+Ova komanda nam je neophodna zbog `Docker Compose`
+Docker compose prilikom pokretanja unutar terminala trazi 
+`docker-compose.yml` fajl koji se nalazi na istoj putanji gde je i **terminal**.
+Pokrenuti komandu.
+  ```bash
+  docker-compose up --build
+  ```
+Ova komanda ce pokrenuti sve neophodne docker kontejnere i aplikacija moze da se koristi.
+
+Aplikaciji pristupiti na linku nakon uspesnog pokretanja
+http://localhost:3000
