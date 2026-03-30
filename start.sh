@@ -10,6 +10,18 @@ else
     echo "✅ Docker je pronađen."
 fi
 
+# Detect docker compose command
+if docker compose version &> /dev/null; then
+    COMPOSE_CMD="docker compose"
+elif docker-compose version &> /dev/null; then
+    COMPOSE_CMD="docker-compose"
+else
+    echo "❌ Nema ni docker compose ni docker-compose instaliran."
+    exit 1
+fi
+
+echo ">> Koristim: $COMPOSE_CMD"
+
 # 1. Pređi na Desktop korisnika
 cd ~/Desktop
 echo ">> Trenutni direktorijum: $(pwd)"
@@ -28,22 +40,22 @@ git clone https://github.com/MandicNikola/testlink-docker
 cd testlink-docker
 
 echo ">> Brišem Docker volumene (ako postoje)..."
-docker compose down -v || true
+$COMPOSE_CMD down -v || true
 
 # 5. Brisanje volumena
 # docker volume rm -f testlink_data mariadb_testlink_data || true
 
 # 6. Pokretanje sa build-om
 echo ">> Pokrećem docker compose za TestLink sa build-om..."
-docker compose up --build -d
+$COMPOSE_CMD up --build -d
 
 cd student-ftn
 
 echo ">> Pokrećem docker compose down za StudentFTN sa build-om..."
-docker compose down -v
+$COMPOSE_CMD down -v
 
 echo ">> Pokrećem docker compose za StudentFTN sa build-om..."
-docker compose up --build -d
+$COMPOSE_CMD up --build -d
 
 
 
