@@ -42,6 +42,24 @@ services:
       - SMTP_PASSWORD=${SMTP_PASSWORD}
       - SMTP_CONNECTION_MODE=${SMTP_CONNECTION_MODE}
 
+  set-admin-password:
+    image: bitnami/mariadb
+    container_name: set_admin_password_testlink
+    restart: "no"
+    networks:
+      - testlink-network
+    depends_on:
+      - mariadb
+      - testlink
+    volumes:
+      - ./set-admin-password.sh:/set-admin-password.sh:ro
+    environment:
+      - DB_HOST=mariadb
+      - DB_NAME=${DATABASE_NAME}
+      - MARIADB_USER=root
+      - MARIADB_ROOT_PASSWORD=${DATABASE_ROOT_PASS}
+    command: ["/bin/sh", "/set-admin-password.sh"]
+
 volumes:
   mariadb_testlink_data:
     name: mariadb_testlink_data
